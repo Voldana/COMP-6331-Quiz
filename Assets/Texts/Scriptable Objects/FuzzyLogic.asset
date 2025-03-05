@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cefaed7636bd4b91afa54254348fe206, type: 3}
+  m_Name: FuzzyLogic
+  m_EditorClassIdentifier: 
+  friendlyThreshold:
+    low: 2
+    high: 7
+  targetThreshold:
+    low: 3
+    high: 8
+  enemyThreshold:
+    low: 1
+    high: 6
+  aggressiveSpeed: 10
+  averageSpeed: 6
+  calmSpeed: 2
