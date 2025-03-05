@@ -7,7 +7,6 @@ namespace Collision
     {
         private void OnCollisionEnter(UnityEngine.Collision collision)
         {
-            // Paper beats Rock
             if (gameObject.CompareTag("Paper"))
             {
                 if (collision.gameObject.CompareTag("Rock"))
