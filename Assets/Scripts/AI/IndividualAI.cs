@@ -1,10 +1,13 @@
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
 namespace AI
 {
     public class IndividualAI : MonoBehaviour
     {
+        [Inject] private GroupAI groupAI;
+        
         [SerializeField] private float maxRadius = 75;
         [SerializeField] private GroupAI.Type type;
 
