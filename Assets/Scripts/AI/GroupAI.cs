@@ -111,6 +111,29 @@ namespace AI
         {
             return Mathf.Clamp(Mathf.Max(input), 0, logic.maxSpeed);
         }
+        
+        public float GetAggression()
+        {
+            return aggressiveness;
+        }
+        public Transform GetClosestTarget()
+        {
+            Transform newTarget = null;
+            var min = Mathf.Infinity;
+
+            foreach (var target in targets)
+            {
+                if (target == null)
+                    continue;
+            
+                var dist = Vector3.Distance(transform.position, target.transform.position);
+                if (!(dist < min)) continue;
+                min = dist;
+                newTarget = target.transform;
+            }
+
+            return newTarget == null ? null : newTarget;
+        }
 
         private static float And(float val1, float val2)
         {

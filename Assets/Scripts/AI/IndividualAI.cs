@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
+using Random = UnityEngine.Random;
 
 namespace AI
 {
@@ -9,7 +10,7 @@ namespace AI
     {
         [Inject] private GroupAI groupAI;
         
-        [SerializeField] private float maxRadius = 75;
+        [SerializeField] private float maxDistance = 75;
         [SerializeField] private GroupAI.Type type;
 
         private List<Transform> nearbyFriends = new();
@@ -21,6 +22,23 @@ namespace AI
         private void Start()
         {
             rb = GetComponent<Rigidbody>();
+        }
+
+        private void FixedUpdate()
+        {
+            CheckCenter();
+        }
+
+        private void CheckCenter()
+        {
+            var distance = Vector3.Distance(transform.position, Vector3.zero);
+            if(distance <= maxDistance) return;
+            transform.position = new Vector3(Random.Range(-25,25),0,Random.Range(-25,25));
+        }
+
+        private void CheckBoost()
+        {
+            
         }
 
         public void AddFriend(Transform friend)
