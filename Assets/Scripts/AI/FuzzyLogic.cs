@@ -15,6 +15,7 @@ namespace AI
         public int aggressiveSpeed;
         public int averageSpeed;
         public int calmSpeed;
+        public int maxSpeed;
     }
     
     [Serializable]

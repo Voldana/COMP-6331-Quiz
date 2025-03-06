@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
@@ -13,6 +14,14 @@ namespace AI
 
         private List<Transform> nearbyFriends = new();
         private List<Transform> nearbyEnemies = new();
+        private Transform closestEnemy;
+        private Transform target;
+        private Rigidbody rb;
+
+        private void Start()
+        {
+            rb = GetComponent<Rigidbody>();
+        }
 
         public void AddFriend(Transform friend)
         {

@@ -24,3 +24,4 @@ MonoBehaviour:
   aggressiveSpeed: 10
   averageSpeed: 6
   calmSpeed: 2
+  maxSpeed: 10
