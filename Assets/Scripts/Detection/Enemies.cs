@@ -7,7 +7,12 @@ namespace Detection
 {
     public class Enemies : MonoBehaviour
     {
-        [Inject] private IndividualAI individualAI;
+        private IndividualAI individualAI;
+        
+        private void Start()
+        {
+            individualAI = transform.parent.GetComponent<IndividualAI>();
+        }
 
         private void OnTriggerEnter(Collider other)
         {

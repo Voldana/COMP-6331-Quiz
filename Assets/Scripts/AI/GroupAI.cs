@@ -132,7 +132,7 @@ namespace AI
                 newTarget = target.transform;
             }
 
-            return newTarget == null ? null : newTarget;
+            return !newTarget ? null : newTarget;
         }
 
         private static float And(float val1, float val2)

@@ -7,7 +7,13 @@ namespace Detection
 {
     public class Friends: MonoBehaviour
     {
-        [Inject] private IndividualAI individualAI;
+        private IndividualAI individualAI;
+
+        private void Start()
+        {
+            individualAI = transform.parent.GetComponent<IndividualAI>();
+        }
+
         private void OnTriggerEnter(Collider other)
         {
             if(!other.gameObject.CompareTag(transform.parent.tag)) return;
