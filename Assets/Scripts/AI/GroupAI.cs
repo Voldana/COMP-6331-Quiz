@@ -149,5 +149,10 @@ namespace AI
         {
             return 1 - val;
         }
+        
+        public Type GetFaction()
+        {
+            return type;
+        }
     }
 }
