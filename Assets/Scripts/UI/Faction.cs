@@ -23,6 +23,7 @@ namespace UI
 
         private void Start()
         {
+            UpdateTexts();
             SetTitle();
             FindGroupAI();
             signalBus.Subscribe<GameEvents.OnEntityDestroy>(OnEntityDeath);
