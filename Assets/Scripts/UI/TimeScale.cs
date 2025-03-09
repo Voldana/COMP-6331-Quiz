@@ -11,6 +11,7 @@ namespace UI
         
         private void Start()
         {
+            UpdateTime(slider.value);
             slider.onValueChanged.AddListener(UpdateTime);
         }
 

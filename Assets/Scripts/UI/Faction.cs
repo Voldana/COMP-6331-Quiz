@@ -9,6 +9,7 @@ namespace UI
 {
     public class Faction : MonoBehaviour
     {
+        [Inject] private EndPanel.Factory factory;
         [Inject] private SignalBus signalBus;
         
         [SerializeField] private TMP_Text aggressiveness;
@@ -56,7 +57,15 @@ namespace UI
             if (!signal.typeKilled.Equals(faction)) return;
             members--;
             UpdateTexts();
+            if(members == 0)
+                CreateEndPanel();
+                
 
+        }
+
+        private void CreateEndPanel()
+        {
+            factory.Create(faction).transform.SetParent(transform.parent.parent, false);
         }
 
         private void UpdateTexts()

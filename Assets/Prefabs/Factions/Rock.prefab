@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5553237399442756790}
   - component: {fileID: 5637952802251345282}
   - component: {fileID: 1384723091148158500}
+  - component: {fileID: 7218596532525032218}
   m_Layer: 0
   m_Name: Detector
   m_TagString: Untagged
@@ -77,6 +78,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e3c99fc35842479880a405dade268b6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7218596532525032218
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2077583914721365636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a040b553fdbd4ff29af98783dbe1b43a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &5853150917556702323
@@ -242,5 +255,5 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 116
   m_CollisionDetection: 0

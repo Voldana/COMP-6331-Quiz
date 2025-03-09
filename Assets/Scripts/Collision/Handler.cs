@@ -13,6 +13,8 @@ namespace Collision
         {
             if (gameObject.CompareTag("Paper"))
             {
+                CheckObstacle(GroupAI.Type.Paper, collision.gameObject);
+
                 if (collision.gameObject.CompareTag("Rock"))
                 {
                     collision.gameObject.SetActive(false);
@@ -28,6 +30,8 @@ namespace Collision
 
             if (gameObject.CompareTag("Rock"))
             {
+                CheckObstacle(GroupAI.Type.Rock, collision.gameObject);
+
                 if (collision.gameObject.CompareTag("Scissors"))
                 {
                     collision.gameObject.SetActive(false);
@@ -43,6 +47,8 @@ namespace Collision
 
             if (gameObject.CompareTag("Scissors"))
             {
+                CheckObstacle(GroupAI.Type.Scissors, collision.gameObject);
+
                 if (collision.gameObject.CompareTag("Paper"))
                 {
                     collision.gameObject.SetActive(false);
@@ -58,6 +64,7 @@ namespace Collision
 
             if (gameObject.CompareTag("Lizard"))
             {
+                CheckObstacle(GroupAI.Type.Lizard, collision.gameObject);
                 if (collision.gameObject.CompareTag("Spock"))
                 {
                     collision.gameObject.SetActive(false);
@@ -73,6 +80,7 @@ namespace Collision
 
             if (gameObject.CompareTag("Spock"))
             {
+                CheckObstacle(GroupAI.Type.Spock, collision.gameObject);
                 if (collision.gameObject.CompareTag("Scissors"))
                 {
                     collision.gameObject.SetActive(false);
@@ -85,6 +93,15 @@ namespace Collision
                     SendSignal(GroupAI.Type.Rock,GroupAI.Type.Spock);
                 }
             }
+
+            
+        }
+
+        private void CheckObstacle(GroupAI.Type myType, GameObject collided)
+        {
+            if (!collided.gameObject.CompareTag("Obstacle")) return;
+            gameObject.SetActive(false);
+            SendSignal(myType,GroupAI.Type.None);
         }
 
         private void SendSignal(GroupAI.Type typeKilled, GroupAI.Type killedBy)

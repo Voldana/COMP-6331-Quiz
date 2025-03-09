@@ -15,12 +15,14 @@ namespace AI
         [SerializeField] private float maxDistance = 75;
         [SerializeField] private GroupAI.Type type;
 
+        private List<Transform> nearbyObstacles = new();
         private List<Transform> nearbyFriends = new();
         private List<Transform> nearbyEnemies = new();
         private Transform closestTarget;
         private Transform closestEnemy;
         private Rigidbody rb;
 
+        private Vector3 startingPos;
         private Vector3 direction;
         private Vector3 avoidance;
         private float boostTime = 2;
@@ -29,6 +31,7 @@ namespace AI
         private void Start()
         {
             rb = GetComponent<Rigidbody>();
+            startingPos = transform.position;
         }
 
         private void FixedUpdate()
@@ -41,6 +44,7 @@ namespace AI
             else if (closestTarget && closestTarget.gameObject.activeSelf)
                 Seek();
             AvoidFriends();
+            AvoidObstacles();
             CalculateSpeed();
         }
 
@@ -48,7 +52,8 @@ namespace AI
         {
             var distance = Vector3.Distance(transform.position, Vector3.zero);
             if (distance <= maxDistance) return;
-            transform.position = new Vector3(Random.Range(-25, 25), 0, Random.Range(-25, 25));
+            // transform.position = new Vector3(Random.Range(-25, 25), 0, Random.Range(-25, 25));
+            transform.position = startingPos;
         }
 
         private void CheckBoost()
@@ -95,12 +100,19 @@ namespace AI
 
         private void AvoidObstacles()
         {
-            
+            foreach (var obstacle in from obstacle in nearbyObstacles
+                     where obstacle.gameObject.activeSelf
+                     let distance = Vector3.Distance(transform.position, obstacle.position)
+                     where !(distance > 7)
+                     select obstacle)
+            {
+                avoidance += Vector3.Normalize(transform.position - obstacle.position);
+            }
         }
 
         private void CalculateSpeed()
         {
-            direction = (direction + (1 * avoidance.normalized).normalized).normalized;
+            direction = (direction + avoidance.normalized.normalized).normalized;
             rb.linearVelocity = direction * (groupAI.GetAggression() + (isBoosting?2:0));
         }
 
@@ -153,6 +165,17 @@ namespace AI
         {
             if (!nearbyEnemies.Contains(enemy)) return;
             nearbyEnemies.Remove(enemy);
+        }
+        
+        public void AddObstacle(Transform obstacle)
+        {
+            nearbyObstacles.Add(obstacle);
+        }
+        
+        public void RemoveObstacle(Transform obstacle)
+        {
+            if (!nearbyObstacles.Contains(obstacle)) return;
+            nearbyObstacles.Remove(obstacle);
         }
     }
 }

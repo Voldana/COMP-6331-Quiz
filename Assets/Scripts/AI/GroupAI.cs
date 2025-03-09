@@ -13,7 +13,8 @@ namespace AI
             Paper,
             Scissors,
             Lizard,
-            Spock
+            Spock,
+            None
         }
 
         [Inject] private SignalBus signalBus;
