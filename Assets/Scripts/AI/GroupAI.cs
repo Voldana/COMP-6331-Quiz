@@ -30,6 +30,7 @@ namespace AI
         private void Start()
         {
             Subscribe();
+            UpdateLists();
         }
 
         private void Subscribe()
@@ -90,17 +91,14 @@ namespace AI
             var friendly = fuzzyInput[0];
             var enemy = fuzzyInput[1];
             var target = fuzzyInput[2];
-
-            //average speeds
+            
             outputVariable[0] += And(enemy.high, friendly.high) * logic.averageSpeed;
             outputVariable[0] += Or(enemy.low, target.high) * logic.averageSpeed;
             outputVariable[0] += And(Or(target.high, friendly.high), Not(enemy.high))  * logic.averageSpeed;
-        
-            //calm speed
+            
             outputVariable[1] += Or(enemy.low, target.low) * logic.calmSpeed;
             outputVariable[1] += Or(Or(target.low, friendly.low), enemy.low) * logic.calmSpeed;
-        
-            //aggressive
+            
             outputVariable[2] += And(enemy.high, friendly.low) * logic.aggressiveSpeed;
             outputVariable[2] += And(Or(target.high, friendly.high), Not(enemy.high)) * logic.aggressiveSpeed;
         
@@ -123,7 +121,7 @@ namespace AI
 
             foreach (var target in targets)
             {
-                if (target == null)
+                if (!target.gameObject.activeSelf)
                     continue;
             
                 var dist = Vector3.Distance(transform.position, target.transform.position);

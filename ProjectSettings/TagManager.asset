@@ -9,6 +9,7 @@ TagManager:
   - Scissors
   - Lizard
   - Spock
+  - Obstacle
   layers:
   - Default
   - TransparentFX
