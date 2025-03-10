@@ -105,15 +105,26 @@ namespace AI
             var enemy = fuzzyInput[1];
             var target = fuzzyInput[2];
 
+            // Rule 1: High Enemy & High Friendly → Average Speed
             outputVariable[0] += And(enemy.high, friendly.high) * logic.averageSpeed;
-            outputVariable[0] += Or(enemy.low, target.high) * logic.averageSpeed;
-            outputVariable[0] += And(Or(target.high, friendly.high), Not(enemy.high)) * logic.averageSpeed;
 
-            outputVariable[1] += Or(enemy.low, target.low) * logic.calmSpeed;
-            outputVariable[1] += Or(Or(target.low, friendly.low), enemy.low) * logic.calmSpeed;
-
+            // Rule 2: High Enemy & Low Friendly → Aggressive
             outputVariable[2] += And(enemy.high, friendly.low) * logic.aggressiveSpeed;
+
+            // Rule 3: Low Enemy OR High Target → Average Speed
+            outputVariable[0] += Or(enemy.low, target.high) * logic.averageSpeed;
+
+            // Rule 4: Low Enemy OR Low Target → Move Calmly
+            outputVariable[1] += Or(enemy.low, target.low) * logic.calmSpeed;
+
+            // Rule 5: (High Target OR High Friendly) AND NOT High Enemy → Aggressive
             outputVariable[2] += And(Or(target.high, friendly.high), Not(enemy.high)) * logic.aggressiveSpeed;
+
+            // Rule 6: (Low Target OR High Friendly) AND NOT High Enemy → Average Speed
+            outputVariable[0] += And(Or(target.low, friendly.high), Not(enemy.high)) * logic.averageSpeed;
+
+            // Rule 7: (Low Target OR Low Friendly) OR Low Enemy → Move Calmly
+            outputVariable[1] += Or(Or(target.low, friendly.low), enemy.low) * logic.calmSpeed;
 
             return outputVariable;
         }
@@ -128,11 +139,11 @@ namespace AI
             return aggressiveness;
         }
 
-        public Transform GetClosestTarget()
+        public Transform GetClosestTarget(Transform from)
         {
             return targets
                 .Where(target => target.gameObject.activeSelf)
-                .OrderBy(target => Vector3.Distance(transform.position, target.transform.position))
+                .OrderBy(target => Vector3.Distance(from.position, target.transform.position))
                 .Select(target => target.transform)
                 .FirstOrDefault();
         }

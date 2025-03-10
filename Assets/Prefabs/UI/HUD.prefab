@@ -338,7 +338,15 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2954549264692616135, guid: 8ebeae7d8597c5749a3a02455e532c27, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2954549264692616135, guid: 8ebeae7d8597c5749a3a02455e532c27, type: 3}
       propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2954549264692616135, guid: 8ebeae7d8597c5749a3a02455e532c27, type: 3}
+      propertyPath: m_AnchorMin.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3478640405634830801, guid: 8ebeae7d8597c5749a3a02455e532c27, type: 3}
@@ -360,6 +368,18 @@ PrefabInstance:
     - target: {fileID: 6240299890625616737, guid: 8ebeae7d8597c5749a3a02455e532c27, type: 3}
       propertyPath: m_Name
       value: Time Scale
+      objectReference: {fileID: 0}
+    - target: {fileID: 6818830421758434090, guid: 8ebeae7d8597c5749a3a02455e532c27, type: 3}
+      propertyPath: m_Value
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6818830421758434090, guid: 8ebeae7d8597c5749a3a02455e532c27, type: 3}
+      propertyPath: m_DelayedUpdateVisuals
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8202259659749850587, guid: 8ebeae7d8597c5749a3a02455e532c27, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8202259659749850587, guid: 8ebeae7d8597c5749a3a02455e532c27, type: 3}
       propertyPath: m_AnchorMax.y

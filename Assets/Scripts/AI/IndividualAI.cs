@@ -81,7 +81,7 @@ namespace AI
         {
             direction = Vector3.Normalize(closestTarget.position - transform.position);
             if (Vector3.Distance(closestTarget.position, transform.position) <= 10) return; // In range
-            closestTarget = null;
+            // closestTarget = null;
         }
 
         private void AvoidFriends()
@@ -101,7 +101,7 @@ namespace AI
             foreach (var obstacle in from obstacle in nearbyObstacles
                      where obstacle.gameObject.activeSelf
                      let distance = Vector3.Distance(transform.position, obstacle.position)
-                     where !(distance > 7)
+                     where !(distance > 5)
                      select obstacle)
             {
                 avoidance += Vector3.Normalize(transform.position - obstacle.position);
@@ -117,7 +117,7 @@ namespace AI
         private void SetTarget()
         {
             if (closestTarget && closestTarget.gameObject.activeSelf) return;
-            closestTarget = groupAI.GetClosestTarget();
+            closestTarget = groupAI.GetClosestTarget(transform);
         }
 
         private IEnumerator Boost()
