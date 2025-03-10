@@ -12,6 +12,7 @@ public class SceneInstaller : MonoInstaller
         SignalBusInstaller.Install(Container);
 
         Container.DeclareSignal<GameEvents.OnEntityDestroy>();
+        Container.DeclareSignal<GameEvents.OnGameOver>();
         Container.BindFactory<GroupAI.Type, EndPanel, EndPanel.Factory>().FromComponentInNewPrefab(endPanel).AsSingle();
     }
 }

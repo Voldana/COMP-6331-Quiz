@@ -1,4 +1,3 @@
-using System;
 using System.Linq;
 using AI;
 using TMPro;
@@ -27,7 +26,13 @@ namespace UI
             UpdateTexts();
             SetTitle();
             FindGroupAI();
+            Subscribe();
+        }
+
+        private void Subscribe()
+        {
             signalBus.Subscribe<GameEvents.OnEntityDestroy>(OnEntityDeath);
+            signalBus.Subscribe<GameEvents.OnGameOver>(CheckGameOver);
         }
 
         private void FindGroupAI()
@@ -57,10 +62,12 @@ namespace UI
             if (!signal.typeKilled.Equals(faction)) return;
             members--;
             UpdateTexts();
-            if(members == 0)
-                CreateEndPanel();
-                
+        }
 
+        private void CheckGameOver(GameEvents.OnGameOver signal)
+        {
+            if (!signal.loser.Equals(faction)) return;
+            CreateEndPanel();
         }
 
         private void CreateEndPanel()

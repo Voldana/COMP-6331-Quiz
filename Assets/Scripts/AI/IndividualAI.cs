@@ -1,10 +1,8 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Zenject;
-using Random = UnityEngine.Random;
 
 namespace AI
 {
@@ -65,7 +63,7 @@ namespace AI
         private void Flee()
         {
             var distance = Vector3.Distance(closestEnemy.position, transform.position);
-            if (distance > 10) // Out of range
+            if (distance > 7.5) // Out of range
             {
                 closestEnemy = null;
                 return;
@@ -109,11 +107,11 @@ namespace AI
                 avoidance += Vector3.Normalize(transform.position - obstacle.position);
             }
         }
-
+        
         private void CalculateSpeed()
         {
-            direction = (direction + avoidance.normalized.normalized).normalized;
-            rb.linearVelocity = direction * (groupAI.GetAggression() + (isBoosting?2:0));
+            direction = (direction + avoidance).normalized;
+            rb.linearVelocity = direction * (groupAI.GetAggression() + (isBoosting ? 2 : 0));
         }
 
         private void SetTarget()

@@ -1,4 +1,3 @@
-using System;
 using AI;
 using TMPro;
 using UnityEngine;

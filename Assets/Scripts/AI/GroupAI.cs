@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Zenject;
 
@@ -45,6 +46,17 @@ namespace AI
             targets = targets.FindAll(target => target.gameObject.activeSelf);
             enemies = enemies.FindAll(enemy => enemy.gameObject.activeSelf);
             aggressiveness = FuzzyLogic();
+            CheckForGameOver();
+        }
+
+        private void CheckForGameOver()
+        {
+            if (friends.Any(friend => friend.gameObject.activeSelf))
+            {
+                return;
+            }
+
+            signalBus.Fire(new GameEvents.OnGameOver{loser = type});
         }
 
         private float FuzzyLogic()
@@ -62,11 +74,11 @@ namespace AI
 
             return results;
         }
-        
-        private (float Low, float High) FuzzificationLists(List<GameObject> list, Threshold threshold )
+
+        private (float Low, float High) FuzzificationLists(List<GameObject> list, Threshold threshold)
         {
-            float low = 0;
-            float high = 0;
+            float low;
+            float high;
             if (list.Count <= threshold.low)
             {
                 low = 1;
@@ -92,17 +104,17 @@ namespace AI
             var friendly = fuzzyInput[0];
             var enemy = fuzzyInput[1];
             var target = fuzzyInput[2];
-            
+
             outputVariable[0] += And(enemy.high, friendly.high) * logic.averageSpeed;
             outputVariable[0] += Or(enemy.low, target.high) * logic.averageSpeed;
-            outputVariable[0] += And(Or(target.high, friendly.high), Not(enemy.high))  * logic.averageSpeed;
-            
+            outputVariable[0] += And(Or(target.high, friendly.high), Not(enemy.high)) * logic.averageSpeed;
+
             outputVariable[1] += Or(enemy.low, target.low) * logic.calmSpeed;
             outputVariable[1] += Or(Or(target.low, friendly.low), enemy.low) * logic.calmSpeed;
-            
+
             outputVariable[2] += And(enemy.high, friendly.low) * logic.aggressiveSpeed;
             outputVariable[2] += And(Or(target.high, friendly.high), Not(enemy.high)) * logic.aggressiveSpeed;
-        
+
             return outputVariable;
         }
 
@@ -110,11 +122,12 @@ namespace AI
         {
             return Mathf.Clamp(Mathf.Max(input), 0, logic.maxSpeed);
         }
-        
+
         public float GetAggression()
         {
             return aggressiveness;
         }
+
         public Transform GetClosestTarget()
         {
             Transform newTarget = null;
@@ -124,7 +137,7 @@ namespace AI
             {
                 if (!target.gameObject.activeSelf)
                     continue;
-            
+
                 var dist = Vector3.Distance(transform.position, target.transform.position);
                 if (!(dist < min)) continue;
                 min = dist;
@@ -148,7 +161,7 @@ namespace AI
         {
             return 1 - val;
         }
-        
+
         public Type GetFaction()
         {
             return type;
