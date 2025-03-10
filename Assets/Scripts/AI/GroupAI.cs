@@ -56,7 +56,7 @@ namespace AI
                 return;
             }
 
-            signalBus.Fire(new GameEvents.OnGameOver{loser = type});
+            signalBus.Fire(new GameEvents.OnGameOver { loser = type });
         }
 
         private float FuzzyLogic()
@@ -130,21 +130,11 @@ namespace AI
 
         public Transform GetClosestTarget()
         {
-            Transform newTarget = null;
-            var min = Mathf.Infinity;
-
-            foreach (var target in targets)
-            {
-                if (!target.gameObject.activeSelf)
-                    continue;
-
-                var dist = Vector3.Distance(transform.position, target.transform.position);
-                if (!(dist < min)) continue;
-                min = dist;
-                newTarget = target.transform;
-            }
-
-            return !newTarget ? null : newTarget;
+            return targets
+                .Where(target => target.gameObject.activeSelf)
+                .OrderBy(target => Vector3.Distance(transform.position, target.transform.position))
+                .Select(target => target.transform)
+                .FirstOrDefault();
         }
 
         private static float And(float val1, float val2)
